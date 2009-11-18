@@ -335,6 +335,48 @@ module Geokit
     # http://www.geonames.org
     class GeonamesGeocoder < Geocoder
 
+      # Returns result from geonames' search webservice
+      def self.search(address, options = {})
+        address_str = address.is_a?(GeoLoc) ? address.to_geocodeable_s : address
+        # geonames need a space seperated search string
+        address_str.gsub!(/,/, " ")
+        params = "/search?q=#{Geokit::Inflector::url_escape(address_str)}&style=FULL&maxRows=10"
+        
+        if(GeoKit::Geocoders::geonames)
+          url = "http://ws.geonames.net#{params}&username=#{GeoKit::Geocoders::geonames}"
+        else
+          url = "http://ws.geonames.org#{params}"
+        end
+        
+        res = self.call_geocoder_service(url)
+        
+        return GeoLoc.new if !res.is_a?(Net::HTTPSuccess)
+        
+        xml=res.body
+        logger.debug "Geonames geocoding. Address: #{address}. Result: #{xml}"
+        doc=REXML::Document.new(xml)
+        
+        if(doc.elements['//geonames/totalResultsCount'].text.to_i > 0)
+          res=GeoLoc.new
+        
+          # only take the first result
+          res.lat=doc.elements['//geoname/lat'].text if doc.elements['//geoname/lat']
+          res.lng=doc.elements['//geoname/lng'].text if doc.elements['//geoname/lng']
+          res.country_code=doc.elements['//geoname/countryCode'].text if doc.elements['//geoname/countryCode']
+          res.provider='geonames'
+          res.city=doc.elements['//geoname/name'].text if doc.elements['//geoname/name']
+          res.state=doc.elements['//geoname/adminCode1'].text if doc.elements['//geoname/adminCode1']
+          res.success=true
+          return res
+        else 
+          logger.info "Geonames was unable to geocode address: "+address
+          return GeoLoc.new
+        end
+        
+        rescue
+          logger.error "Caught an error during Geonames geocoding call: "+$!
+      end
+
       private 
       
       # Template method which does the geocode lookup.
