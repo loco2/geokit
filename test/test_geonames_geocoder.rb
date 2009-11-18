@@ -38,6 +38,7 @@ class GeonamesGeocoderTest < BaseGeocoderTest #:nodoc: all
     assert_equal "37.7749295,-122.4194155", res.ll
     assert res.is_us?
     assert_equal "San Francisco, CA, US", res.full_address
+    assert_equal "America/Los_Angeles", res.timezone
     assert_equal "geonames", res.provider
   end
 end

@@ -342,7 +342,9 @@ module Geokit
 
     # Location attributes.  Full address is a concatenation of all values.  For example:
     # 100 Spear St, San Francisco, CA, 94101, US
-    attr_accessor :name, :street_address, :city, :state, :zip, :country_code, :country, :full_address, :all, :district, :province
+    attr_accessor :street_address, :city, :state, :zip, :country_code, :country, :full_address, :all, :district, :province
+    # Optional attributes, returned by geonames in particular
+    attr_accessor :name, :timezone
     # Attributes set upon return from geocoding.  Success will be true for successful
     # geocode lookups.  The provider will be set to the name of the providing geocoder.
     # Finally, precision is an indicator of the accuracy of the geocoding.
