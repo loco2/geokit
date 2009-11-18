@@ -337,7 +337,10 @@ module Geokit
 
       # Returns result from geonames' search webservice
       def self.search(address, options = {})
-        params = "/search?q=#{Geokit::Inflector::url_escape(address_string(address))}&style=FULL&maxRows=10"
+        params = "/search?q=#{Geokit::Inflector::url_escape(address_string(address))}"
+        params << "&continentCode=#{options[:continent]}" if options[:continent]
+        params << "&style=FULL"
+        params << "&maxRows=10"
         
         self.do_call_geocoder_service(address, params) do |res, doc|
           # only take the first result

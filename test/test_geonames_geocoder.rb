@@ -10,13 +10,13 @@ class GeonamesGeocoderTest < BaseGeocoderTest #:nodoc: all
 
   def setup
     super
+    @response = MockSuccess.new
   end
 
   def test_geonames_general_geocoding
-    response = MockSuccess.new
-    response.expects(:body).returns(GEONAMES_RESULT)
+    @response.expects(:body).returns(GEONAMES_RESULT)
     url = "http://ws.geonames.org/postalCodeSearch?placename=#{geonames_escape(@address)}&maxRows=10"
-    Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).with(url).returns(response)
+    Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).with(url).returns(@response)
     res=Geokit::Geocoders::GeonamesGeocoder.geocode(@address)
     assert_equal "California", res.state
     assert_equal "San Francisco", res.city 
@@ -27,10 +27,9 @@ class GeonamesGeocoderTest < BaseGeocoderTest #:nodoc: all
   end
 
   def test_geonames_search
-    response = MockSuccess.new
-    response.expects(:body).returns(GEONAMES_SEARCH_RESULT)
+    @response.expects(:body).returns(GEONAMES_SEARCH_RESULT)
     url = "http://ws.geonames.org/search?q=#{geonames_escape(@address)}&style=FULL&maxRows=10"
-    Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).with(url).returns(response)
+    Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).with(url).returns(@response)
     res=Geokit::Geocoders::GeonamesGeocoder.search(@address)
     assert_equal "San Francisco", res.name
     assert_equal "CA", res.state
@@ -40,5 +39,12 @@ class GeonamesGeocoderTest < BaseGeocoderTest #:nodoc: all
     assert_equal "San Francisco, CA, US", res.full_address
     assert_equal "America/Los_Angeles", res.timezone
     assert_equal "geonames", res.provider
+  end
+
+  def test_geonames_search_with_continent_restriction
+    @response.expects(:body).returns(GEONAMES_SEARCH_RESULT)
+    url = "http://ws.geonames.org/search?q=#{geonames_escape(@address)}&continentCode=NA&style=FULL&maxRows=10"
+    Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).with(url).returns(@response)
+    res=Geokit::Geocoders::GeonamesGeocoder.search(@address, :continent => 'NA')
   end
 end
