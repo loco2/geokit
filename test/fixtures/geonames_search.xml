@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<geonames style="FULL">
+<totalResultsCount>1435</totalResultsCount>
+<geoname>
+<name>San Francisco</name>
+<lat>37.7749295</lat>
+<lng>-122.4194155</lng>
+<geonameId>5391959</geonameId>
+<countryCode>US</countryCode>
+<countryName>United States</countryName>
+
+<fcl>P</fcl>
+<fcode>PPL</fcode>
+<fclName>city, village,...</fclName>
+<fcodeName>populated place</fcodeName>
+<population>732072</population>
+<alternateNames>Frisco,Kapalakiko,Lungsod ng San Francisco,SFO,San Francisco,San Franciscu,San Franciskas,San Francisko,San Fransisco,San Frantzisko,San-Francisko,Sanctus Franciscus,Sanfrancisko,Σαν Φρανσίσκο,Сан Франциско,Сан-Франциско,Сан-Франціско,סן פרנסיסקו,سان فرانسىسكو,سان فرانسيسكو,سان‌فرانسیسکو,ซานฟรานซิสโก,სან-ფრანცისკო,サンフランシスコ,旧金山,샌프란시스코</alternateNames>
+<elevation>16</elevation>
+<continentCode>NA</continentCode>
+<adminCode1>CA</adminCode1>
+
+<adminName1>California</adminName1>
+<adminCode2>075</adminCode2>
+<adminName2>San Francisco County</adminName2>
+<alternateName lang="tl">Lungsod ng San Francisco</alternateName>
+<alternateName lang="ast">San Francisco</alternateName>
+<alternateName lang="th">ซานฟรานซิสโก</alternateName>
+<alternateName lang="haw">Kapalakiko</alternateName>
+<alternateName lang="ka">სან-ფრანცისკო</alternateName>
+<alternateName lang="zh">旧金山</alternateName>
+
+<alternateName lang="ar">سان فرانسيسكو</alternateName>
+<alternateName lang="scn">San Franciscu</alternateName>
+<alternateName lang="sv">San Francisco</alternateName>
+<alternateName lang="pt">San Francisco</alternateName>
+<alternateName lang="gl">San Francisco</alternateName>
+<alternateName lang="mo">San Francisco</alternateName>
+<alternateName lang="sr">Сан Франциско</alternateName>
+<alternateName lang="af">San Francisco</alternateName>
+<alternateName lang="sq">San Francisco</alternateName>
+
+<alternateName lang="mk">Сан Франциско</alternateName>
+<alternateName lang="de">San Francisco</alternateName>
+<alternateName lang="pl">San Francisco</alternateName>
+<alternateName lang="sl">San Francisco</alternateName>
+<alternateName lang="gd">San Francisco</alternateName>
+<alternateName lang="sk">San Francisco</alternateName>
+<alternateName lang="da">San Francisco</alternateName>
+<alternateName lang="ga">San Francisco</alternateName>
+<alternateName lang="sh">San Francisco</alternateName>
+
+<alternateName lang="vi">San Francisco</alternateName>
+<alternateName lang="ja">サンフランシスコ</alternateName>
+<alternateName lang="nds">San Francisco</alternateName>
+<alternateName lang="cy">San Francisco</alternateName>
+<alternateName lang="cs">San Francisco</alternateName>
+<alternateName lang="fr">San Francisco</alternateName>
+<alternateName lang="it">San Francisco</alternateName>
+<alternateName lang="is">San Francisco</alternateName>
+<alternateName lang="lt">San Franciskas</alternateName>
+
+<alternateName lang="ru">Сан-Франциско</alternateName>
+<alternateName lang="fi">San Francisco</alternateName>
+<alternateName lang="ro">San Francisco</alternateName>
+<alternateName lang="ca">San Francisco</alternateName>
+<alternateName lang="id">San Francisco</alternateName>
+<alternateName lang="uk">Сан-Франциско</alternateName>
+<alternateName lang="fa">سان‌فرانسیسکو</alternateName>
+<alternateName lang="ug">سان فرانسىسكو</alternateName>
+<alternateName lang="la">Sanctus Franciscus</alternateName>
+
+<alternateName lang="eu">San Frantzisko</alternateName>
+<alternateName lang="bs">San Francisco</alternateName>
+<alternateName lang="et">San Francisco</alternateName>
+<alternateName lang="es">San Francisco</alternateName>
+<alternateName lang="hu">San Francisco</alternateName>
+<alternateName lang="eo">San Francisco</alternateName>
+<alternateName lang="en">San Francisco</alternateName>
+<alternateName lang="el">Σαν Φρανσίσκο</alternateName>
+<alternateName lang="ko">샌프란시스코</alternateName>
+
+<alternateName lang="bg">Сан Франциско</alternateName>
+<alternateName lang="no">San Francisco</alternateName>
+<alternateName lang="tr">San Francisco</alternateName>
+<alternateName lang="nn">San Francisco</alternateName>
+<alternateName lang="nl">San Francisco</alternateName>
+<alternateName lang="he">סן פרנסיסקו</alternateName>
+<alternateName lang="iata">SFO</alternateName>
+<timezone dstOffset="-7.0" gmtOffset="-8.0">America/Los_Angeles</timezone>
+
+<score>1.0</score>
+</geoname>
+<geoname>
+<name>San Francisco International Airport</name>
+<lat>37.6188237</lat>
+<lng>-122.3758047</lng>
+<geonameId>5391989</geonameId>
+<countryCode>US</countryCode>
+<countryName>United States</countryName>
+<fcl>S</fcl>
+
+<fcode>AIRP</fcode>
+<fclName>spot, building, farm</fclName>
+<fcodeName>airport</fcodeName>
+<population/>
+<alternateNames>Aeroport international de San Francisco,Aeroporto Internacional de San Francisco,Aéroport international de San Francisco,Flughafen San Francisco,KSFO,Mezhdunarodno letishhe San Francisko,Mezhdunarodnyj aehroport San-Francisko,Port lotniczy San Francisco,SFO,San Francisco International Airport,Sân bay Quốc tế San Francisco,Международно летище Сан Франциско,Международный аэропорт Сан-Франциско,サンフランシスコ国際空港,舊金山國際機場</alternateNames>
+<elevation>5</elevation>
+<continentCode>NA</continentCode>
+<adminCode1>CA</adminCode1>
+<adminName1>California</adminName1>
+
+<adminCode2>081</adminCode2>
+<adminName2>San Mateo County</adminName2>
+<alternateName lang="zh">舊金山國際機場</alternateName>
+<alternateName lang="en">San Francisco International Airport</alternateName>
+<alternateName lang="iata">SFO</alternateName>
+<alternateName lang="ru">Международный аэропорт Сан-Франциско</alternateName>
+<alternateName lang="pl">Port lotniczy San Francisco</alternateName>
+<alternateName lang="vi">Sân bay Quốc tế San Francisco</alternateName>
+<alternateName lang="bg">Международно летище Сан Франциско</alternateName>
+
+<alternateName lang="fr">Aéroport international de San Francisco</alternateName>
+<alternateName lang="icao">KSFO</alternateName>
+<alternateName lang="de">Flughafen San Francisco</alternateName>
+<alternateName lang="sv">San Francisco International Airport</alternateName>
+<alternateName lang="ja">サンフランシスコ国際空港</alternateName>
+<alternateName lang="pt">Aeroporto Internacional de San Francisco</alternateName>
+<timezone dstOffset="-7.0" gmtOffset="-8.0">America/Los_Angeles</timezone>
+<score>0.3410949409008026</score>
+</geoname>
+
+</geonames>

@@ -2,6 +2,7 @@ require File.join(File.dirname(__FILE__), 'test_base_geocoder')
 
 class GeonamesGeocoderTest < BaseGeocoderTest #:nodoc: all
   GEONAMES_RESULT = fixture('geonames')
+  GEONAMES_SEARCH_RESULT = fixture('geonames_search')
 
   def geonames_escape(value)
     Geokit::Inflector.url_escape(value.to_s.gsub(/,/, ' '))
