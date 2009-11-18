@@ -365,7 +365,7 @@ module Geokit
           res.lat=doc.elements['//code/lat'].text if doc.elements['//code/lat']
           res.lng=doc.elements['//code/lng'].text if doc.elements['//code/lng']
           res.country_code=doc.elements['//code/countryCode'].text if doc.elements['//code/countryCode']
-          res.provider='genomes'  
+          res.provider='geonames'
           res.city=doc.elements['//code/name'].text if doc.elements['//code/name']
           res.state=doc.elements['//code/adminName1'].text if doc.elements['//code/adminName1']
           res.zip=doc.elements['//code/postalcode'].text if doc.elements['//code/postalcode']
