@@ -23,6 +23,10 @@ class BaseGeocoderTest < Test::Unit::TestCase #:nodoc: all
     end    
   end
 
+  def self.fixture(name)
+    File.read(File.join(File.dirname(__FILE__), 'fixtures', "#{name}.xml"))
+  end
+
   # Defines common test fixtures.
   def setup
     @address = 'San Francisco, CA'    
