@@ -38,6 +38,14 @@ class GeonamesGeocoderTest < BaseGeocoderTest #:nodoc: all
     assert_equal "geonames", res.provider
   end
 
+  def test_geonames_search_city_is_not_set_if_location_is_not_a_city
+    @response.expects(:body).returns(fixture('geonames/fts_not_a_city'))
+    Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).returns(@response)
+    res=Geokit::Geocoders::GeonamesGeocoder.search(@address)
+    assert_equal "London King's Cross Railway Station", res.name
+    assert_nil res.city
+  end
+
   def test_geonames_search_with_continent_restriction
     @response.expects(:body).returns(fixture('geonames/full_text_search'))
     url = "http://ws.geonames.org/search?q=#{geonames_escape(@address)}&continentCode=NA&style=FULL&maxRows=10"
@@ -45,11 +53,10 @@ class GeonamesGeocoderTest < BaseGeocoderTest #:nodoc: all
     Geokit::Geocoders::GeonamesGeocoder.search(@address, :continent => 'NA')
   end
 
-  def test_geonames_search_city_is_not_set_if_location_is_not_a_city
-    @response.expects(:body).returns(fixture('geonames/fts_not_a_city'))
-    Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).returns(@response)
-    res=Geokit::Geocoders::GeonamesGeocoder.search(@address)
-    assert_equal "London King's Cross Railway Station", res.name
-    assert_nil res.city
+  def test_geonames_search_with_feature_class_restriction
+    @response.expects(:body).returns(fixture('geonames/full_text_search'))
+    url = "http://ws.geonames.org/search?q=#{geonames_escape(@address)}&featureClass=P&style=FULL&maxRows=10"
+    Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).with(url).returns(@response)
+    Geokit::Geocoders::GeonamesGeocoder.search(@address, :feature_class => 'P')
   end
 end
