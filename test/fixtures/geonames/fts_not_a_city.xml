@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<geonames style="FULL">
+<totalResultsCount>2</totalResultsCount>
+<geoname>
+<name>London King's Cross Railway Station</name>
+<lat>51.5321</lat>
+<lng>-0.1233</lng>
+<geonameId>2645474</geonameId>
+<countryCode>GB</countryCode>
+<countryName>United Kingdom</countryName>
+<fcl>S</fcl>
+<fcode>RSTN</fcode>
+<fclName>spot, building, farm</fclName>
+<fcodeName>railroad station</fcodeName>
+<population/>
+<alternateNames>London King's Cross Railway Station</alternateNames>
+<elevation/>
+<continentCode>EU</continentCode>
+<adminCode1>ENG</adminCode1>
+<adminName1>England</adminName1>
+<adminCode2>C4</adminCode2>
+<adminName2>London Borough of Camden</adminName2>
+<alternateName lang="en">London King's Cross Railway Station</alternateName>
+<timezone dstOffset="1.0" gmtOffset="0.0">Europe/London</timezone>
+<score>1.0</score>
+</geoname>
+</geonames>

@@ -349,7 +349,10 @@ module Geokit
           res.name = doc.elements['//geoname/name'].text if doc.elements['//geoname/name']
           res.country_code=doc.elements['//geoname/countryCode'].text if doc.elements['//geoname/countryCode']
           res.provider='geonames'
-          res.city=doc.elements['//geoname/name'].text if doc.elements['//geoname/name']
+          # if the location is a city or village
+          if doc.elements['//geoname/fcl'].text == 'P'
+            res.city=res.name
+          end
           res.state=doc.elements['//geoname/adminCode1'].text if doc.elements['//geoname/adminCode1']
           res.timezone = doc.elements['//geoname/timezone'].text if doc.elements['//geoname/timezone']
           res.success=true
