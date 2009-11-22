@@ -1,9 +1,6 @@
 require File.join(File.dirname(__FILE__), 'test_base_geocoder')
 
 class GeonamesGeocoderTest < BaseGeocoderTest #:nodoc: all
-  GEONAMES_RESULT = fixture('geonames')
-  GEONAMES_SEARCH_RESULT = fixture('geonames_search')
-
   def geonames_escape(value)
     Geokit::Inflector.url_escape(value.to_s.gsub(/,/, ' '))
   end
@@ -14,7 +11,7 @@ class GeonamesGeocoderTest < BaseGeocoderTest #:nodoc: all
   end
 
   def test_geonames_general_geocoding
-    @response.expects(:body).returns(GEONAMES_RESULT)
+    @response.expects(:body).returns(fixture('geonames/postal_code_search'))
     url = "http://ws.geonames.org/postalCodeSearch?placename=#{geonames_escape(@address)}&maxRows=10"
     Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).with(url).returns(@response)
     res=Geokit::Geocoders::GeonamesGeocoder.geocode(@address)
@@ -27,7 +24,7 @@ class GeonamesGeocoderTest < BaseGeocoderTest #:nodoc: all
   end
 
   def test_geonames_search
-    @response.expects(:body).returns(GEONAMES_SEARCH_RESULT)
+    @response.expects(:body).returns(fixture('geonames/full_text_search'))
     url = "http://ws.geonames.org/search?q=#{geonames_escape(@address)}&style=FULL&maxRows=10"
     Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).with(url).returns(@response)
     res=Geokit::Geocoders::GeonamesGeocoder.search(@address)
@@ -42,7 +39,7 @@ class GeonamesGeocoderTest < BaseGeocoderTest #:nodoc: all
   end
 
   def test_geonames_search_with_continent_restriction
-    @response.expects(:body).returns(GEONAMES_SEARCH_RESULT)
+    @response.expects(:body).returns(fixture('geonames/full_text_search'))
     url = "http://ws.geonames.org/search?q=#{geonames_escape(@address)}&continentCode=NA&style=FULL&maxRows=10"
     Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).with(url).returns(@response)
     res=Geokit::Geocoders::GeonamesGeocoder.search(@address, :continent => 'NA')
