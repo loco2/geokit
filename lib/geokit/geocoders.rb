@@ -344,6 +344,11 @@ module Geokit
             params << "&featureClass=#{fc}"
           end
         end
+        if options[:feature_code]
+          Array(options[:feature_code]).each do |fc|
+            params << "&featureCode=#{fc}"
+          end
+        end
         params << "&style=FULL"
         params << "&maxRows=10"
         

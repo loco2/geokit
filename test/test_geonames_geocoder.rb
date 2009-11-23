@@ -62,4 +62,14 @@ class GeonamesGeocoderTest < BaseGeocoderTest #:nodoc: all
     Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).with(url).returns(@response)
     Geokit::Geocoders::GeonamesGeocoder.search(@address, :feature_class => %w(P S))
   end
+
+  def test_geonames_search_with_feature_code_restriction
+    @response.stubs(:body).returns(fixture('geonames/full_text_search'))
+    url = "http://ws.geonames.org/search?q=#{geonames_escape(@address)}&featureCode=PPLC&style=FULL&maxRows=10"
+    Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).with(url).returns(@response)
+    Geokit::Geocoders::GeonamesGeocoder.search(@address, :feature_code => 'PPLC')
+    url = "http://ws.geonames.org/search?q=#{geonames_escape(@address)}&featureCode=PPLC&featureCode=PPLX&style=FULL&maxRows=10"
+    Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).with(url).returns(@response)
+    Geokit::Geocoders::GeonamesGeocoder.search(@address, :feature_code => %w(PPLC PPLX))
+  end
 end
