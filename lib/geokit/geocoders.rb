@@ -339,7 +339,11 @@ module Geokit
       def self.search(address, options = {})
         params = "/search?q=#{Geokit::Inflector::url_escape(address_string(address))}"
         params << "&continentCode=#{options[:continent]}" if options[:continent]
-        params << "&featureClass=#{options[:feature_class]}" if options[:feature_class]
+        if options[:feature_class]
+          Array(options[:feature_class]).each do |fc|
+            params << "&featureClass=#{fc}"
+          end
+        end
         params << "&style=FULL"
         params << "&maxRows=10"
         
