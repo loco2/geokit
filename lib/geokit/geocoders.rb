@@ -404,7 +404,7 @@ module Geokit
       def self.do_call_geocoder_service(address, params)
         res = self.call_geocoder_service(url(params))
         
-        return GeoLoc.new if !res.is_a?(Net::HTTPSuccess)
+        raise GeocodeError.new("HTTP request failed: #{res.class}") if !res.is_a?(Net::HTTPSuccess)
         
         xml=res.body
         logger.debug "Geonames geocoding. Address: #{address}. Result: #{xml}"
@@ -420,9 +420,6 @@ module Geokit
           logger.info "Geonames was unable to geocode address: "+address
           return GeoLoc.new
         end
-        
-        rescue
-          logger.error "Caught an error during Geonames geocoding call: "+$!
       end
     end
 

@@ -72,4 +72,19 @@ class GeonamesGeocoderTest < BaseGeocoderTest #:nodoc: all
     Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).with(url).returns(@response)
     Geokit::Geocoders::GeonamesGeocoder.search(@address, :feature_code => %w(PPLC PPLX))
   end
+
+  def test_http_error
+    error = MockFailure.new
+    Geokit::Geocoders::GeonamesGeocoder.stubs(:call_geocoder_service).returns(error)
+    assert_raise GeoKit::Geocoders::GeocodeError do
+      Geokit::Geocoders::GeonamesGeocoder.search(@address)
+    end
+  end
+
+  def test_geocoding_failure
+    @response.stubs(:body).returns(fixture('geonames/nothing_found'))
+    Geokit::Geocoders::GeonamesGeocoder.stubs(:call_geocoder_service).returns(@response)
+    result = Geokit::Geocoders::GeonamesGeocoder.search(@address)
+    assert !result.success?
+  end
 end
