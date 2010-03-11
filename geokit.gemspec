@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{eugenebolshakov-geokit}
-  s.version = "1.5.0"
+  s.version = "1.5.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Andre Lewis and Bill Eisenhauer"]
@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   								"test/test_geoplugin_geocoder.rb", "test/test_google_geocoder.rb", "test/test_google_reverse_geocoder.rb", 
   								"test/test_inflector.rb", "test/test_ipgeocoder.rb", "test/test_latlng.rb", "test/test_multi_geocoder.rb", 
   								"test/test_multi_ip_geocoder.rb", "test/test_us_geocoder.rb", "test/test_yahoo_geocoder.rb",
-                  "test/test_geonames_geocoder.rb", "test/geonames_reverse_geocoder.rb"]
+                  "test/test_geonames_geocoder.rb", "test/test_geonames_reverse_geocoder.rb"]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
