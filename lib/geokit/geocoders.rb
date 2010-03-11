@@ -371,6 +371,23 @@ module Geokit
         end
       end
 
+      def self.cities_in_bounds(bounds)
+        params = "/cities?north=#{bounds.ne.lat}&south=#{bounds.sw.lat}&east=#{bounds.ne.lng}&west=#{bounds.sw.lng}"
+
+        self.do_call_geocoder_service(bounds.to_s, params) do |res, doc|
+          if doc.elements['//geonames/geoname']
+            # only take the first result
+            first = doc.elements['//geonames/geoname']
+            res.lat = first.elements['lat'].text
+            res.lng = first.elements['lng'].text
+            res.city = res.name = first.elements['name'].text
+            res.country_code = first.elements['countryCode'].text if first.elements['countryCode']
+            res.provider='geonames'
+            res.success = true
+          end
+        end
+      end
+
       private 
       
       # Template method which does the geocode lookup.
