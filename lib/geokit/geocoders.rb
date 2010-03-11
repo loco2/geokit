@@ -353,19 +353,21 @@ module Geokit
         params << "&maxRows=10"
         
         self.do_call_geocoder_service(address, params) do |res, doc|
-          # only take the first result
-          res.lat=doc.elements['//geoname/lat'].text if doc.elements['//geoname/lat']
-          res.lng=doc.elements['//geoname/lng'].text if doc.elements['//geoname/lng']
-          res.name = doc.elements['//geoname/name'].text if doc.elements['//geoname/name']
-          res.country_code=doc.elements['//geoname/countryCode'].text if doc.elements['//geoname/countryCode']
-          res.provider='geonames'
-          # if the location is a city or village
-          if doc.elements['//geoname/fcl'].text == 'P'
-            res.city=res.name
+          if(doc.elements['//geonames/totalResultsCount'].text.to_i > 0)
+            # only take the first result
+            res.lat=doc.elements['//geoname/lat'].text if doc.elements['//geoname/lat']
+            res.lng=doc.elements['//geoname/lng'].text if doc.elements['//geoname/lng']
+            res.name = doc.elements['//geoname/name'].text if doc.elements['//geoname/name']
+            res.country_code=doc.elements['//geoname/countryCode'].text if doc.elements['//geoname/countryCode']
+            res.provider='geonames'
+            # if the location is a city or village
+            if doc.elements['//geoname/fcl'].text == 'P'
+              res.city=res.name
+            end
+            res.state=doc.elements['//geoname/adminCode1'].text if doc.elements['//geoname/adminCode1']
+            res.timezone = doc.elements['//geoname/timezone'].text if doc.elements['//geoname/timezone']
+            res.success=true
           end
-          res.state=doc.elements['//geoname/adminCode1'].text if doc.elements['//geoname/adminCode1']
-          res.timezone = doc.elements['//geoname/timezone'].text if doc.elements['//geoname/timezone']
-          res.success=true
         end
       end
 
@@ -376,15 +378,17 @@ module Geokit
         params = "/postalCodeSearch?placename=#{Geokit::Inflector::url_escape(address_string(address))}&maxRows=10"
         
         self.do_call_geocoder_service(address, params) do |res, doc|
-          # only take the first result
-          res.lat=doc.elements['//code/lat'].text if doc.elements['//code/lat']
-          res.lng=doc.elements['//code/lng'].text if doc.elements['//code/lng']
-          res.country_code=doc.elements['//code/countryCode'].text if doc.elements['//code/countryCode']
-          res.provider='geonames'
-          res.city=doc.elements['//code/name'].text if doc.elements['//code/name']
-          res.state=doc.elements['//code/adminName1'].text if doc.elements['//code/adminName1']
-          res.zip=doc.elements['//code/postalcode'].text if doc.elements['//code/postalcode']
-          res.success=true
+          if(doc.elements['//geonames/totalResultsCount'].text.to_i > 0)
+            # only take the first result
+            res.lat=doc.elements['//code/lat'].text if doc.elements['//code/lat']
+            res.lng=doc.elements['//code/lng'].text if doc.elements['//code/lng']
+            res.country_code=doc.elements['//code/countryCode'].text if doc.elements['//code/countryCode']
+            res.provider='geonames'
+            res.city=doc.elements['//code/name'].text if doc.elements['//code/name']
+            res.state=doc.elements['//code/adminName1'].text if doc.elements['//code/adminName1']
+            res.zip=doc.elements['//code/postalcode'].text if doc.elements['//code/postalcode']
+            res.success=true
+          end
         end
       end
 
@@ -401,25 +405,24 @@ module Geokit
         end
       end
 
-      def self.do_call_geocoder_service(address, params)
+      def self.do_call_geocoder_service(request, params)
         res = self.call_geocoder_service(url(params))
-        
-        raise GeocodeError.new("HTTP request failed: #{res.class}") if !res.is_a?(Net::HTTPSuccess)
-        
-        xml=res.body
-        logger.debug "Geonames geocoding. Address: #{address}. Result: #{xml}"
-        doc=REXML::Document.new(xml)
-        
-        if(doc.elements['//geonames/totalResultsCount'].text.to_i > 0)
-          res=GeoLoc.new
 
-          yield res, doc
-        
-          return res
-        else 
-          logger.info "Geonames was unable to geocode address: "+address
-          return GeoLoc.new
+        raise GeocodeError.new("HTTP request failed: #{res.class}") if !res.is_a?(Net::HTTPSuccess)
+
+        xml=res.body
+        logger.debug "Geonames gecoder. Request: #{request}. Result: #{xml}"
+        doc=REXML::Document.new(xml)
+
+        res=GeoLoc.new
+
+        yield res, doc
+
+        if !res.success?
+          logger.info "Geonames was unable to process request: #{request}"
         end
+
+        res
       end
     end
 
