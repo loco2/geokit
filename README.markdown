@@ -8,15 +8,15 @@ The Geokit gem provides:
  * Rectangular bounds calculations: is a point within a given rectangular bounds?
  * Heading and midpoint calculations
 
-Combine this gem with the [geokit-rails plugin](http://github.com/andre/geokit-rails/tree/master) to get location-based finders for your Rails app.
+Combine this with the [geokit-rails plugin](http://github.com/andre/geokit-rails/tree/master) to get location-based finders for your Rails app.
 
 * Geokit Documentation at Rubyforge [http://geokit.rubyforge.org](http://geokit.rubyforge.org).
-* Repository at Github: [http://github.com/andre/geokit-gem/tree/master](http://github.com/andre/geokit-gem/tree/master).
+* Repository at Github: [http://github.com/loco2/geokit/tree/master](http://github.com/loco2/geokit/tree/master).
 * Follow the Google Group for updates and discussion on Geokit: [http://groups.google.com/group/geokit](http://groups.google.com/group/geokit) 
 
 ## INSTALL
 
-    sudo gem install geokit
+    ./script/plugin install git://github.com/loco2/geokit.git
 
 ## QUICK START
 
