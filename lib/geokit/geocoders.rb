@@ -350,7 +350,7 @@ module Geokit
           end
         end
         params << "&style=FULL"
-        params << "&maxRows=10"
+        params << "&maxRows=1"
         
         self.do_call_geocoder_service(address, params) do |res, doc|
           if(doc.elements['//geonames/totalResultsCount'].text.to_i > 0)
@@ -392,7 +392,7 @@ module Geokit
       
       # Template method which does the geocode lookup.
       def self.do_geocode(address, options = {})
-        params = "/postalCodeSearch?placename=#{Geokit::Inflector::url_escape(address_string(address))}&maxRows=10"
+        params = "/postalCodeSearch?placename=#{Geokit::Inflector::url_escape(address_string(address))}&maxRows=1"
         
         self.do_call_geocoder_service(address, params) do |res, doc|
           if(doc.elements['//geonames/totalResultsCount'].text.to_i > 0)

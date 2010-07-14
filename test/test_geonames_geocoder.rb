@@ -12,7 +12,7 @@ class GeonamesGeocoderTest < BaseGeocoderTest #:nodoc: all
 
   def test_geonames_general_geocoding
     @response.expects(:body).returns(fixture('geonames/postal_code_search'))
-    url = "http://ws.geonames.org/postalCodeSearch?placename=#{geonames_escape(@address)}&maxRows=10"
+    url = "http://ws.geonames.org/postalCodeSearch?placename=#{geonames_escape(@address)}&maxRows=1"
     Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).with(url).returns(@response)
     res=Geokit::Geocoders::GeonamesGeocoder.geocode(@address)
     assert_equal "California", res.state
@@ -25,7 +25,7 @@ class GeonamesGeocoderTest < BaseGeocoderTest #:nodoc: all
 
   def test_geonames_search
     @response.expects(:body).returns(fixture('geonames/full_text_search'))
-    url = "http://ws.geonames.org/search?q=#{geonames_escape(@address)}&style=FULL&maxRows=10"
+    url = "http://ws.geonames.org/search?q=#{geonames_escape(@address)}&style=FULL&maxRows=1"
     Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).with(url).returns(@response)
     res=Geokit::Geocoders::GeonamesGeocoder.search(@address)
     assert_equal "San Francisco", res.name
@@ -48,27 +48,27 @@ class GeonamesGeocoderTest < BaseGeocoderTest #:nodoc: all
 
   def test_geonames_search_with_continent_restriction
     @response.expects(:body).returns(fixture('geonames/full_text_search'))
-    url = "http://ws.geonames.org/search?q=#{geonames_escape(@address)}&continentCode=NA&style=FULL&maxRows=10"
+    url = "http://ws.geonames.org/search?q=#{geonames_escape(@address)}&continentCode=NA&style=FULL&maxRows=1"
     Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).with(url).returns(@response)
     Geokit::Geocoders::GeonamesGeocoder.search(@address, :continent => 'NA')
   end
 
   def test_geonames_search_with_feature_class_restriction
     @response.stubs(:body).returns(fixture('geonames/full_text_search'))
-    url = "http://ws.geonames.org/search?q=#{geonames_escape(@address)}&featureClass=P&style=FULL&maxRows=10"
+    url = "http://ws.geonames.org/search?q=#{geonames_escape(@address)}&featureClass=P&style=FULL&maxRows=1"
     Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).with(url).returns(@response)
     Geokit::Geocoders::GeonamesGeocoder.search(@address, :feature_class => 'P')
-    url = "http://ws.geonames.org/search?q=#{geonames_escape(@address)}&featureClass=P&featureClass=S&style=FULL&maxRows=10"
+    url = "http://ws.geonames.org/search?q=#{geonames_escape(@address)}&featureClass=P&featureClass=S&style=FULL&maxRows=1"
     Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).with(url).returns(@response)
     Geokit::Geocoders::GeonamesGeocoder.search(@address, :feature_class => %w(P S))
   end
 
   def test_geonames_search_with_feature_code_restriction
     @response.stubs(:body).returns(fixture('geonames/full_text_search'))
-    url = "http://ws.geonames.org/search?q=#{geonames_escape(@address)}&featureCode=PPLC&style=FULL&maxRows=10"
+    url = "http://ws.geonames.org/search?q=#{geonames_escape(@address)}&featureCode=PPLC&style=FULL&maxRows=1"
     Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).with(url).returns(@response)
     Geokit::Geocoders::GeonamesGeocoder.search(@address, :feature_code => 'PPLC')
-    url = "http://ws.geonames.org/search?q=#{geonames_escape(@address)}&featureCode=PPLC&featureCode=PPLX&style=FULL&maxRows=10"
+    url = "http://ws.geonames.org/search?q=#{geonames_escape(@address)}&featureCode=PPLC&featureCode=PPLX&style=FULL&maxRows=1"
     Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).with(url).returns(@response)
     Geokit::Geocoders::GeonamesGeocoder.search(@address, :feature_code => %w(PPLC PPLX))
   end
