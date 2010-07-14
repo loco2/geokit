@@ -18,9 +18,10 @@ class GeonamesGeocoderTest < BaseGeocoderTest #:nodoc: all
     assert_equal "California", res.state
     assert_equal "San Francisco", res.city 
     assert_equal "37.781334,-122.416728", res.ll
-    assert res.is_us?
+    assert       res.is_us?
     assert_equal "San Francisco, California, 94102, US", res.full_address
     assert_equal "geonames", res.provider
+    assert_nil   res.provider_id
   end
 
   def test_geonames_search
@@ -32,10 +33,11 @@ class GeonamesGeocoderTest < BaseGeocoderTest #:nodoc: all
     assert_equal "CA", res.state
     assert_equal "San Francisco", res.city 
     assert_equal "37.7749295,-122.4194155", res.ll
-    assert res.is_us?
+    assert       res.is_us?
     assert_equal "San Francisco, CA, US", res.full_address
     assert_equal "America/Los_Angeles", res.timezone
     assert_equal "geonames", res.provider
+    assert_equal "5391959", res.provider_id  
   end
 
   def test_geonames_search_city_is_not_set_if_location_is_not_a_city

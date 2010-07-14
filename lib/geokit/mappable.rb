@@ -347,8 +347,9 @@ module Geokit
     attr_accessor :name, :timezone
     # Attributes set upon return from geocoding.  Success will be true for successful
     # geocode lookups.  The provider will be set to the name of the providing geocoder.
+    # The provider id will be set to the provider-specific location identifier
     # Finally, precision is an indicator of the accuracy of the geocoding.
-    attr_accessor :success, :provider, :precision, :suggested_bounds
+    attr_accessor :success, :provider, :provider_id, :precision, :suggested_bounds
     # Street number and street name are extracted from the street address attribute.
     attr_reader :street_number, :street_name
     # accuracy is set for Yahoo and Google geocoders, it is a numeric value of the 

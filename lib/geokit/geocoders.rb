@@ -360,6 +360,7 @@ module Geokit
             res.name = doc.elements['//geoname/name'].text if doc.elements['//geoname/name']
             res.country_code=doc.elements['//geoname/countryCode'].text if doc.elements['//geoname/countryCode']
             res.provider='geonames'
+            res.provider_id = doc.elements['//geoname/geonameId'].text if doc.elements['//geoname/geonameId']
             # if the location is a city or village
             if doc.elements['//geoname/fcl'].text == 'P'
               res.city=res.name
