@@ -76,7 +76,8 @@ module Geokit
     @@google = 'REPLACE_WITH_YOUR_GOOGLE_KEY'
     @@geocoder_us = false
     @@geocoder_ca = false
-    @@geonames = false
+    @@geonames_host = 'ws.geonames.org'
+    @@geonames_username = false
     @@provider_order = [:google,:us]
     @@ip_provider_order = [:geo_plugin,:ip]
     @@logger=Logger.new(STDOUT)
@@ -416,10 +417,10 @@ module Geokit
       end
 
       def self.url(params)
-        if(GeoKit::Geocoders::geonames)
-          url = "http://ws.geonames.net#{params}&username=#{GeoKit::Geocoders::geonames}"
+        if(GeoKit::Geocoders::geonames_username)
+          url = "http://ws.geonames.net#{params}&username=#{GeoKit::Geocoders::geonames_username}"
         else
-          url = "http://ws.geonames.org#{params}"
+          url = "http://#{GeoKit::Geocoders::geonames_host}#{params}"
         end
       end
 
