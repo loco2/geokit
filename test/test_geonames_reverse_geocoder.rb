@@ -19,4 +19,23 @@ class GeonamesReverseGeocoderTest < BaseGeocoderTest #:nodoc: all
     assert_equal "Paris, FR", res.full_address
     assert_equal "geonames", res.provider
   end
+
+  def test_find_nearby
+    latlng = GeoKit::LatLng.new(47.3, 9)
+
+    @response = MockSuccess.new
+    @response.expects(:body).returns(fixture('geonames/find_nearby'))
+
+    url = "http://ws.geonames.org/findNearby?lat=47.3&lng=9&radius=10&featureClass=P&style=FULL&maxRows=1"
+
+    Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).with(url).returns(@response)
+
+    res=Geokit::Geocoders::GeonamesGeocoder.find_nearby(latlng, {:radius => 10, :feature_class => 'P'})
+    assert_equal "Atzmännig", res.city
+    assert_equal "47.28763,8.98845", res.ll
+    assert !res.is_us?
+    assert_equal "Atzmännig, SG, CH", res.full_address
+    assert_equal "geonames", res.provider
+    assert_equal "6559633", res.provider_id
+  end
 end

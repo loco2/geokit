@@ -352,45 +352,38 @@ module Geokit
         end
         params << "&style=FULL"
         params << "&maxRows=1"
-        
-        self.do_call_geocoder_service(address, params) do |res, doc|
-          if(doc.elements['//geonames/totalResultsCount'].text.to_i > 0)
-            # only take the first result
-            res.lat=doc.elements['//geoname/lat'].text if doc.elements['//geoname/lat']
-            res.lng=doc.elements['//geoname/lng'].text if doc.elements['//geoname/lng']
-            res.name = doc.elements['//geoname/name'].text if doc.elements['//geoname/name']
-            res.country_code=doc.elements['//geoname/countryCode'].text if doc.elements['//geoname/countryCode']
-            res.provider='geonames'
-            res.provider_id = doc.elements['//geoname/geonameId'].text if doc.elements['//geoname/geonameId']
-            # if the location is a city or village
-            if doc.elements['//geoname/fcl'].text == 'P'
-              res.city=res.name
-            end
-            res.state=doc.elements['//geoname/adminCode1'].text if doc.elements['//geoname/adminCode1']
-            res.timezone = doc.elements['//geoname/timezone'].text if doc.elements['//geoname/timezone']
-            res.success=true
-          end
-        end
+
+        do_call_geocoder_service(address, params)
       end
 
       def self.cities_in_bounds(bounds)
         params = "/cities?north=#{bounds.ne.lat}&south=#{bounds.sw.lat}&east=#{bounds.ne.lng}&west=#{bounds.sw.lng}"
 
-        self.do_call_geocoder_service(bounds.to_s, params) do |res, doc|
-          if doc.elements['//geonames/geoname']
-            # only take the first result
-            first = doc.elements['//geonames/geoname']
-            res.lat = first.elements['lat'].text
-            res.lng = first.elements['lng'].text
-            res.city = res.name = first.elements['name'].text
-            res.country_code = first.elements['countryCode'].text if first.elements['countryCode']
-            res.provider='geonames'
-            res.success = true
-          end
-        end
+        do_call_geocoder_service(bounds.to_s, params)
       end
 
-      private 
+      def self.find_nearby(ll, options)
+        params = "/findNearby?lat=#{ll.lat}&lng=#{ll.lng}"
+
+        params << "&radius=#{options[:radius]}" if options[:radius]
+
+        if options[:feature_class]
+          Array(options[:feature_class]).each do |fc|
+            params << "&featureClass=#{fc}"
+          end
+        end
+        if options[:feature_code]
+          Array(options[:feature_code]).each do |fc|
+            params << "&featureCode=#{fc}"
+          end
+        end
+        params << "&style=FULL"
+        params << "&maxRows=1"
+
+        do_call_geocoder_service(ll.to_s, params)
+      end
+
+      private
       
       # Template method which does the geocode lookup.
       def self.do_geocode(address, options = {})
@@ -435,13 +428,36 @@ module Geokit
 
         res=GeoLoc.new
 
-        yield res, doc
+        if block_given?
+          yield res, doc
+        else
+          parse_result res, doc
+        end
 
         if !res.success?
           logger.info "Geonames was unable to process request: #{request}"
         end
 
         res
+      end
+
+      def self.parse_result(res, doc)
+        if(doc.elements['//geonames/geoname'])
+          # only take the first result
+          res.lat=doc.elements['//geoname/lat'].text if doc.elements['//geoname/lat']
+          res.lng=doc.elements['//geoname/lng'].text if doc.elements['//geoname/lng']
+          res.name = doc.elements['//geoname/name'].text if doc.elements['//geoname/name']
+          res.country_code=doc.elements['//geoname/countryCode'].text if doc.elements['//geoname/countryCode']
+          res.provider='geonames'
+          res.provider_id = doc.elements['//geoname/geonameId'].text if doc.elements['//geoname/geonameId']
+          # if the location is a city or village
+          if doc.elements['//geoname/fcl'].text == 'P'
+            res.city=res.name
+          end
+          res.state=doc.elements['//geoname/adminCode1'].text if doc.elements['//geoname/adminCode1']
+          res.timezone = doc.elements['//geoname/timezone'].text if doc.elements['//geoname/timezone']
+          res.success=true
+        end
       end
     end
 

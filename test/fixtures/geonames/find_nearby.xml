@@ -1,0 +1,27 @@
+<geonames>
+<geoname> 
+<toponymName>Atzmännig</toponymName> 
+<name>Atzmännig</name> 
+<lat>47.28763</lat> 
+<lng>8.98845</lng> 
+<geonameId>6559633</geonameId> 
+<countryCode>CH</countryCode> 
+<countryName>Switzerland</countryName> 
+<fcl>P</fcl> 
+<fcode>PPL</fcode> 
+<fclName>city, village,...</fclName> 
+<fcodeName>populated place</fcodeName> 
+<population/> 
+<alternateNames/> 
+<elevation>0</elevation> 
+<continentCode>EU</continentCode> 
+<adminCode1>SG</adminCode1> 
+<adminName1>Sankt Gallen</adminName1> 
+<adminCode2>1726</adminCode2> 
+<adminName2>Wahlkreis See-Gaster</adminName2> 
+<adminCode3>3333</adminCode3> 
+<adminName3>Goldingen</adminName3> 
+<timezone dstOffset="2.0" gmtOffset="1.0">Europe/Zurich</timezone> 
+<distance>1.6276</distance> 
+</geoname> 
+</geonames>
