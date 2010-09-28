@@ -350,6 +350,9 @@ module Geokit
             params << "&featureCode=#{fc}"
           end
         end
+        if options[:operator].to_s.upcase == 'OR'
+          params << "&operator=OR"
+        end
         params << "&style=FULL"
         params << "&maxRows=1"
 

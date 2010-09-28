@@ -75,6 +75,13 @@ class GeonamesGeocoderTest < BaseGeocoderTest #:nodoc: all
     Geokit::Geocoders::GeonamesGeocoder.search(@address, :feature_code => %w(PPLC PPLX))
   end
 
+  def test_geonames_search_with_operator
+    @response.stubs(:body).returns(fixture('geonames/full_text_search'))
+    url = "http://ws.geonames.org/search?q=#{geonames_escape(@address)}&operator=OR&style=FULL&maxRows=1"
+    Geokit::Geocoders::GeonamesGeocoder.expects(:call_geocoder_service).with(url).returns(@response)
+    Geokit::Geocoders::GeonamesGeocoder.search(@address, :operator => 'OR')
+  end
+
   def test_http_error
     error = MockFailure.new
     Geokit::Geocoders::GeonamesGeocoder.stubs(:call_geocoder_service).returns(error)
