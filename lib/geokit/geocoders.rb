@@ -339,20 +339,29 @@ module Geokit
       # Returns result from geonames' search webservice
       def self.search(address, options = {})
         params = "/search?q=#{Geokit::Inflector::url_escape(address_string(address))}"
-        params << "&continentCode=#{options[:continent]}" if options[:continent]
+
+        if options[:continent]
+          Array(options[:continent]).each do |c|
+            params << "&continentCode=#{c}"
+          end
+        end
+
         if options[:feature_class]
           Array(options[:feature_class]).each do |fc|
             params << "&featureClass=#{fc}"
           end
         end
+
         if options[:feature_code]
           Array(options[:feature_code]).each do |fc|
             params << "&featureCode=#{fc}"
           end
         end
+
         if options[:operator].to_s.upcase == 'OR'
           params << "&operator=OR"
         end
+
         params << "&style=FULL"
         params << "&maxRows=1"
 
