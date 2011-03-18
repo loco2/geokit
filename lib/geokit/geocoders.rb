@@ -463,7 +463,7 @@ module Geokit
           res.provider='geonames'
           res.provider_id = doc.elements['//geoname/geonameId'].text if doc.elements['//geoname/geonameId']
           # if the location is a city or village
-          if doc.elements['//geoname/fcl'].text == 'P'
+          if doc.elements['//geoname/fcl'] && doc.elements['//geoname/fcl'].text == 'P'
             res.city=res.name
           end
           res.state=doc.elements['//geoname/adminCode1'].text if doc.elements['//geoname/adminCode1']
